@@ -2,6 +2,7 @@
 title: nginx整合openResty+lua+高可用解决方案
 date: 2020-11-07 15:17:20
 tags: nginx
+category: 中间件
 ---
 
 ### 入门介绍
@@ -1207,18 +1208,18 @@ make install
     # add the yum repo:
     wget https://openresty.org/package/centos/openresty.repo
     sudo mv openresty.repo /etc/yum.repos.d/
-    
+  
     # update the yum index:
     sudo yum check-update
-    
+  
     sudo yum install openresty
-    
+  
     #安装命令行工具
     sudo yum install openresty-resty
-    
+  
     # 列出所有 openresty 仓库里的软件包
     sudo yum --disablerepo="*" --enablerepo="openresty" list available
-    
+  
     #查看版本
     resty -V
 
@@ -1393,7 +1394,7 @@ end
   ```
 
 
-##### 网盘静态资源下载限速实现原理
+#### 网盘静态资源下载限速实现原理
 
 - 下载限速实现原理
   - 目的：限制下载速度

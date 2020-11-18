@@ -1,7 +1,8 @@
 ---
-title: Jenkins持续集成-Git-Gitlab-Sonar
+title: Jenkins持续集成-Git-Gitlab-Sonar__backup
 date: 2020-11-05 08:55:08
 tags: git gitlab jekenis
+category: 内在修行
 ---
 
 ### Git
@@ -20,7 +21,7 @@ tags: git gitlab jekenis
 
 - git --version
 
-  查看git的版本 
+   查看git的版本 
 
 - git init 
 
@@ -32,11 +33,11 @@ tags: git gitlab jekenis
 
 - git remote
 
-  用于管理远程仓库
+   用于管理远程仓库
 
 - git push -u origin master
 
-  往名字为origin的仓库的master分支上提交变更
+   往名字为origin的仓库的master分支上提交变更
 
 - git fetch 
 
@@ -78,13 +79,13 @@ tags: git gitlab jekenis
 
   切换分支 。git branch 不加任何参数，列出所有的分支，分支前面有*号，代表该分支为当前所在分支
 
-- git branch -d 分支名
+-  git branch -d 分支名
 
   创建分支的时候，分支名不用使用特殊符号 ，不能删除当前所在的分支 
 
 - git branch -m 旧分支名 新分支名  
 
-  改名
+   改名
 
 - git checkout 分支名 
 
@@ -311,7 +312,7 @@ cat /opt/gitlab/embedded/service/gitlab-rails/VERSION  #查看gitlab版本
 - 官网
 
   ```
-  https://www.sonatype.com/download-oss-sonatype
+https://www.sonatype.com/download-oss-sonatype
   ```
 
 1. 解压
@@ -645,7 +646,7 @@ cat /opt/gitlab/embedded/service/gitlab-rails/VERSION  #查看gitlab版本
   ```
 
 - Jenkins安装
-
+  
   - 安装Tomcat
 
 #### Jenkins安装
@@ -661,17 +662,13 @@ cat /opt/gitlab/embedded/service/gitlab-rails/VERSION  #查看gitlab版本
 - 安装Jenkins
 
   - 将Jenkins上传到tomcat的webapp目录
-
-- vim conf/server.xml
-
+-  vim conf/server.xml
   - 访问 http://192.168.56.101:9999/jenkins/pluginManager/advanced 拉到最底下将https改成http
   - 重启tomcat 浏览器打开http://192.168.56.101:9999/jenkins 
   - more /home/tomcat/.jenkins/secrets/initialAdminPassword 
-
 - 选择默认安装
 
 - 系统管理--->插件管理
-
   - 安装Maven Integration plugin --整合Maven
   - 安装SonarQube Scanner for Jenkins --整合Jenkins
   - Publish Over SSH --发布到远程服务器
