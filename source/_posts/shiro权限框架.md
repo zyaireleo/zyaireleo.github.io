@@ -502,7 +502,7 @@ if(subject.isPermitted("/user/add")){
 
   - 核心方法：
 
-  - ```
+    ```
     //开启一个session
     Session start(SessionContext context);
     //指定Key获取session
@@ -514,32 +514,35 @@ if(subject.isPermitted("/user/add")){
 * SessionDao 会话存储/持久化
 
   * SessionDAO
-    	AbstractSessionDAO
-      		CachingSessionDAO
-      			EnterpriseCacheSessionDAO
-      		MemorySessionDAO
-
+    	
+     ```
+     AbstractSessionDAO
+      CachingSessionDAO
+   EnterpriseCacheSessionDAO
+    	 MemorySessionDAO
+    	```
+    	
   * 核心方法
+    	
+     ```
+     //创建
+     Serializable create(Session session);
+  //获取
+    	Session readSession(Serializable sessionId) throws UnknownSessionException;
+    	//更新
+    	void update(Session session) 
+    	//删除，会话过期时会调用
+    	void delete(Session session);
+    	//获取活跃的session
+    	Collection<Session> getActiveSessions();
+    	```
 
-    ```
-    //创建
-    Serializable create(Session session);
-    //获取
-    Session readSession(Serializable sessionId) throws UnknownSessionException;
-    //更新
-    void update(Session session) 
-    //删除，会话过期时会调用
-    void delete(Session session);
-    //获取活跃的session
-    Collection<Session> getActiveSessions();
-    ```
-
-  * 会话存储有多个实现		
+  - 会话存储有多个实现
 
   附属资料：
 
   ```
- RememberMe
+   RememberMe
     1、 Cookie 写到客户端并 保存
   2、 通过调用subject.login()前，设置 token.setRememberMe(true);
     3、 关闭浏览器再重新打开;会发现浏览器还是记住你的
@@ -548,10 +551,8 @@ if(subject.isPermitted("/user/add")){
       - subject.isRemembered() 表示用户是通过RememberMe登录的
       - subject.isAuthenticated()==true，则 subject.isRemembered()==false， 两个互斥
       - 总结：特殊页面或者API调用才需要authc进行验证拦截，该拦截器会判断用户是否是通过 		subject.login()登录，安全性更高，其他非核心接口或者页面则通过user拦截器处理即可
-  
-  
   ```
-  
+
 
 ### 升天
 
@@ -815,5 +816,4 @@ if(subject.isPermitted("/user/add")){
 * 没有100%可靠的算法，暴力破解，穷举
   * 限制时间内ip登录错误次数
   * 增加图形验证码，不能过于简单，常用的OCR可以识别验证码
-
-* 建议：微服务里面，特别是对C端用户的应用，不要做过于复杂的权限校验，特别是影响性能这块
+* 建议：微服务里面，特别是对C端用户的应用，不要做过于复杂的权限校验，特别是影响性能这块LL
