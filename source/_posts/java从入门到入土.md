@@ -22,7 +22,7 @@ description: 主要记录一些jdk的新操作
 
   - 使⽤JDK⾥sun.misc套件下的BASE64Encoder和BASE64Decoder这两个类
 
-  ```
+  ```java
  BASE64Encoder encoder = new BASE64Encoder();
  BASE64Decoder decoder = new BASE64Decoder();
  String text = "⼩滴课堂";
@@ -45,7 +45,7 @@ description: 主要记录一些jdk的新操作
 
   不用引包，直接开干
 
-  ```
+  ```java
   Base64.Decoder decoder = Base64.getDecoder();
   Base64.Encoder encoder = Base64.getEncoder();
   String text = "⼩小滴课堂";
@@ -142,7 +142,7 @@ description: 主要记录一些jdk的新操作
 
   - 如果值存在则isPresent()⽅法会返回true，调⽤get()⽅法会返回该对象⼀般使⽤get之前需要 先验证是否有值，不然还会报错
 
-    ```
+    ```java
     public static void main(String[] args) {
      	Student student = null;
      	test(student);
@@ -226,7 +226,92 @@ description: 主要记录一些jdk的新操作
      }
     ```
 
-    
+- lambda表达式 使⽤用场景(前提)：⼀一个接⼝口中只包含⼀一个⽅方法，则可以使⽤用Lambda表达式，这样
+  的接⼝口称之为“函数接⼝口” 语法： (params) -> expression
 
+  ```
+  第⼀部分为括号内⽤逗号分隔的形式参数，参数是函数式接⼝⾥⾯⽅法的参数；第⼆部分为⼀个箭
+  头符号：->；第三部分为⽅法体，可以是表达式和代码块
+  参数列表 ：
+   括号中参数列表的数据类型可以省略不写
+   括号中的参数只有⼀个，那么参数类型和()都可以省略不写
+  ⽅法体：
+   如果{}中的代码只有⼀⾏，⽆论有返回值，可以省略{}，return，分号，要⼀起省略，其他
+  则需要加上
+  ```
 
+  ​	好处： Lambda 表达式的实现⽅式在本质是以匿名内部类的⽅式进⾏实现，重构现有臃肿代码，更⾼的开发效率，尤其是集合Collection操作的时候，
 
+- 自定义lambda接⼝编程
+
+  ⾃定义lambda接⼝流程 
+
+  - 定义⼀个函数式接⼝ 需要标注此接⼝ @FunctionalInterface，否则万⼀团队成员在接口上加 了其他⽅法则容易出故障 
+  - 编写⼀个⽅法，输⼊需要操做的数据和接口
+  - 在调用⽅法时传⼊数据 和 lambda 表达式，⽤来操作数据
+
+  定义接口
+
+  ```
+  @FunctionalInterface
+  public interface OperFunction<R,T> {
+  	 R operator(T t1, T t2);
+  }
+  ```
+
+  实现操作
+
+  ```
+  public static void main(String[] args) throws Exception {
+   	System.out.println(operator(20, 5, (Integer x, Integer y) -> {
+   		return x * y;
+   	}));
+   	
+   	System.out.println(operator(20, 5, (x, y) -> x + y));
+  	System.out.println(operator(20, 5, (x, y) -> x - y));
+  	System.out.println(operator(20, 5, (x, y) -> x / y));
+   }
+   public static Integer operator(Integer x, Integer y,OperFunction<Integer, Integer> of) {
+       return of.operator(x, y);
+   }	
+  ```
+
+#### JDK函数式编程
+
+- Lambda表达式必须先定义接⼝，创建相关⽅法之后才可使⽤，这样做⼗分不便，其实java8已经内置了许多接口, 例如下⾯四个功能型接⼝，所以⼀般很少会由⽤户去定义新的函数式接⼝
+
+- Java8的最⼤大特性就是函数式接口，所有标注了@FunctionalInterface注解的接口都是函数式接口
+
+  ```
+  Java8 内置的四⼤核⼼函数式接⼝
+  
+  Consumer<T> : 消费型接⼝：有⼊参，⽆返回值
+   	void accept(T t);
+   	
+  Supplier<T> : 供给型接⼝：⽆⼊参，有返回值
+  	 T get();
+  	 
+  Function<T, R> : 函数型接⼝：有⼊参，有返回值
+   	R apply(T t);
+   	
+  Predicate<T> : 断⾔型接⼝：有⼊参，有返回值，返回值类型确定是boolean
+  	 boolean test(T t);
+  ```
+
+  
+
+##### 函数式编程之Function
+
+- 传⼊⼀个值经过函数的计算返回另⼀个值 
+
+  T：⼊参类型，R：出参类型 
+
+  调⽤⽅法：R apply(T t)
+
+##### 函数式编程之BiFunction
+
+##### 函数式编程之Comsumer
+
+##### 函数式编程之Supplier
+
+##### 函数式编程之Predictate

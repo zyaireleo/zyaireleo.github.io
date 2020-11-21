@@ -1,7 +1,8 @@
 ---
-title: AlibabaCloud+docker
+title: AlibabaCloud-docker
 date: 2020-11-10 19:30:12
-tags: 微服务
+tags: AlibabaCloud
+
 ---
 
 ### 引言
@@ -56,7 +57,7 @@ tags: 微服务
 
 #### 微服务核心组件图
 
-![image-20201110200336527](AlibabaCloud-docker/image-20201110200336527.png)
+![image-20201110200336527](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201110200336527.png)
 
 ### 起步
 
@@ -158,6 +159,7 @@ tags: 微服务
   ```
 
 - 存在的问题
+
   - 服务之间的IP信息写死
   - 服务之间无法提供负载均衡
   - 多个服务直接关系调用维护复杂
@@ -199,7 +201,7 @@ tags: 微服务
     - CP ： 适合支付、交易类，要求数据强一致性，宁可业务不可用，也不能出现脏数据
     - AP: 互联网业务，比如信息流架构，不要求数据强一致，更想要服务可用
 
-![image-20201110200816781](AlibabaCloud-docker/image-20201110200816781.png)
+![image-20201110200816781](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201110200816781.png)
 
 ##### CAP理论
 
@@ -213,7 +215,7 @@ tags: 微服务
 
 - CAP理论就是说在分布式存储系统中，最多只能实现上面的两点。而由于当前的网络硬件肯定会出现延迟丢包等问题，所以分区容忍性是我们必须需要实现的。所以我们只能在一致性和可用性之间进行权衡
 
-  ![image-20201110203816385](AlibabaCloud-docker/image-20201110203816385.png)
+  ![image-20201110203816385](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201110203816385.png)
 
 ```
 CA： 如果不要求P（不允许分区），则C（强一致性）和A（可用性）是可以保证的。但放弃P的同时也就意味着放弃了系统的扩展性，也就是分布式节点受限，没办法部署子节点，这是违背分布式系统设计的初衷的
@@ -329,7 +331,7 @@ CAP 中的一致性和可用性进行一个权衡的结果，核心思想就是�
     - 服务端负载均衡
     - 客户端负载均衡
 
-![image-20201110201930966](AlibabaCloud-docker/image-20201110201930966.png)
+![image-20201110201930966](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201110201930966.png)
 
 - 常见的负载均衡策略（看组件的支持情况）
   - 节点轮询
@@ -436,7 +438,7 @@ Open-Feign
 
 - 漏斗，不管流量多大，均匀的流入容器，令牌桶算法，漏桶算法
 
-  ![image-20200908182543365](AlibabaCloud-docker/image-20200908182543365.png)
+  ![image-20200908182543365](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200908182543365.png)
 
 - 熔断：
 
@@ -447,10 +449,11 @@ Open-Feign
   - 抛弃一些非核心的接口和数据，返回兜底数据 旅行箱的例子：只带核心的物品，抛弃非核心的，等有条件的时候再去携带这些物品
 
 - 隔离：
-  
+
 - 服务和资源互相隔离，比如网络资源，机器资源，线程资源等，不会因为某个服务的资源不足而抢占其他服务的资源
-  
+
 - 熔断和降级互相交集
+
   - 相同点：
     - 从可用性和可靠性触发，为了防止系统崩溃
     - 最终让用户体验到的是某些功能暂时不能用
@@ -482,9 +485,9 @@ Open-Feign
   java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
   ```
 
-##### 项目整合Sentinel
+- 项目整合Sentinel
 
-- 接入sentinel
+  - 接入sentinel
 
   ```
   spring:
@@ -500,23 +503,50 @@ Open-Feign
 
   微服务注册上去后，由于Sentinel是懒加载模式，所以需要访问微服务后才会在控制台出现
 
-##### 流量控制的效果
+##### 流量控制规则
 
-- 直接拒绝：默认的流量控制方式，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝
+- 基于统计并发线程数的流量控制
 
-   
+  ```
+  并发数控制用于保护业务线程池不被慢调用耗尽
+  
+  Sentinel 并发控制不负责创建和管理线程池，而是简单统计当前请求上下文的线程数目（正在执行的调用数目）
+  
+  如果超出阈值，新的请求会被立即拒绝，效果类似于信号量隔离。
+  ```
 
-- Warm Up：冷启动/预热，如果系统在此之前长期处于空闲的状态，我们希望处理请求的数量是缓步的增多，经过预期的时间以后，到达系统处理请求个数的最大值
+- 基于统计QPS的流量控制
 
-![image-20200908212417778](AlibabaCloud-docker/image-20200908212417778.png)
+  ```
+  当 QPS 超过某个阈值的时候，则采取措施进行流量控制
+  ```
 
-- 匀速排队：严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过，对应的是漏桶算法，主要用于处理间隔性突发的流量，如消息队列，想象一下这样的场景，在某一秒有大量的请求到来，而接下来的几秒则处于空闲状态，我们希望系统能够在接下来的空闲期间逐渐处理这些请求，而不是在第一秒直接拒绝多余的请求
+###### 基于并发线程数限制流量控制
 
-  ![image](AlibabaCloud-docker/68292442-d4af3c00-00c6-11ea-8251-d0977366d9b4.png)
+```
+并发数控制用于保护业务线程池不被慢调用耗尽
 
-  - 注意：
-    - 匀速排队等待策略是 Leaky Bucket 算法结合虚拟队列等待机制实现的。
-    - 匀速排队模式暂时不支持 QPS > 1000 的场景
+Sentinel 并发控制不负责创建和管理线程池，而是简单统计当前请求上下文的线程数目（正在执行的调用数目）
+
+如果超出阈值，新的请求会被立即拒绝，效果类似于信号量隔离。并发数控制通常在调用端进行配
+```
+
+- 效果
+
+  - 直接拒绝：默认的流量控制方式，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝
+
+  - Warm Up：冷启动/预热，如果系统在此之前长期处于空闲的状态，我们希望处理请求的数量是缓步的增多，经过预期的时间以后，到达系统处理请求个数的最大值
+
+    ![image-20200908212417778](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200908212417778.png)
+
+  - 匀速排队：严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过，对应的是漏桶算法，主要用于处理间隔性突发的流量，如消息队列，想象一下这样的场景，在某一秒有大量的请求到来，而接下来的几秒则处于空闲状态，我们希望系统能够在接下来的空闲期间逐渐处理这些请求，而不是在第一秒直接拒绝多余的请求
+
+  ![image](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/68292442-d4af3c00-00c6-11ea-8251-d0977366d9b4.png)
+
+- 注意：
+
+  - 匀速排队等待策略是 Leaky Bucket 算法结合虚拟队列等待机制实现的。
+  - 匀速排队模式暂时不支持 QPS > 1000 的场景
 
 ##### Sentinel熔断降级规则
 
@@ -530,11 +560,11 @@ Open-Feign
 
   - 慢调用比例(响应时间): 选择以慢调用比例作为阈值，需要设置允许的慢调用 RT（即最大的响应时间），请求的响应时间大于该值则统计为慢调用
 
-    - 比例阈值：修改后不生效-目前已经反馈给官方那边的bug
+    - 比例阈值
     - 熔断时长：超过时间后会尝试恢复
     - 最小请求数：熔断触发的最小请求数，请求数小于该值时即使异常比率超出阈值也不会熔断
 
-    ![image-20200909121342893](AlibabaCloud-docker/image-20200909121342893.png)
+    ![image-20200909121342893](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200909121342893.png)
 
   - 异常比例：当单位统计时长内请求数目大于设置的最小请求数目，并且异常的比例大于阈值，则接下来的熔断时长内请求会自动被熔断
 
@@ -542,7 +572,7 @@ Open-Feign
     - 熔断时长：超过时间后会尝试恢复
     - 最小请求数：熔断触发的最小请求数，请求数小于该值时，即使异常比率超出阈值也不会熔断
 
-    ![image-20200909121357918](AlibabaCloud-docker/image-20200909121357918.png)
+    ![image-20200909121357918](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200909121357918.png)
 
   - 异常数：当单位统计时长内的异常数目超过阈值之后会自动进行熔断
 
@@ -550,7 +580,7 @@ Open-Feign
     - 熔断时长：超过时间后会尝试恢复
     - 最小请求数：熔断触发的最小请求数，请求数小于该值时即使异常比率超出阈值也不会熔断
 
-    ![image-20200909121415806](AlibabaCloud-docker/image-20200909121415806.png)
+    ![image-20200909121415806](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200909121415806.png)
 
 #####  Sentinel的熔断状态和恢复
 
@@ -568,7 +598,7 @@ Open-Feign
 
     - 所谓半熔断就是尝试恢复服务调用，允许有限的流量调用该服务，并监控调用成功率
 
-    ![image-20200909171947975](AlibabaCloud-docker/image-20200909171947975.png)
+    ![image-20200909171947975](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20200909171947975.png)
 
 - 熔断恢复：
 
@@ -576,3 +606,700 @@ Open-Feign
   - 如果成功率达到预期，则说明服务已恢复，进入熔断关闭状态；如果成功率仍旧很低，则重新进入熔断状态
 
 ##### Sentinel自定义异常-整合Open-Feign
+
+v2.1.0到v2.2.0后，Sentinel里面依赖进行了改动，且不向下兼容
+
+###### 自定义降级返回数据
+
+- 【旧版】实现UrlBlockHandler并且重写blocked方法
+
+```
+@Component
+public class XdclassUrlBlockHandler implements UrlBlockHandler {
+    @Override
+    public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {
+       //降级业务处理
+    }
+}
+```
+
+- 【新版】实现BlockExceptionHandler并且重写handle方法
+
+```
+@Component
+public class XdclassUrlBlockHandler implements BlockExceptionHandler {
+    @Override
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {
+        Map<String,Object> backMap=new HashMap<>();
+        if (e instanceof FlowException){
+            backMap.put("code",-1);
+            backMap.put("msg","限流-异常啦");
+        }else if (e instanceof DegradeException){
+            backMap.put("code",-2);
+            backMap.put("msg","降级-异常啦");
+        }else if (e instanceof ParamFlowException){
+            backMap.put("code",-3);
+            backMap.put("msg","热点-异常啦");
+        }else if (e instanceof SystemBlockException){
+            backMap.put("code",-4);
+            backMap.put("msg","系统规则-异常啦");
+        }else if (e instanceof AuthorityException){
+            backMap.put("code",-5);
+            backMap.put("msg","认证-异常啦");
+        }
+
+        // 设置返回json数据
+        httpServletResponse.setStatus(200);
+        httpServletResponse.setHeader("content-Type","application/json;charset=UTF-8");
+        httpServletResponse.getWriter().write(JSON.toJSONString(backMap));
+    }
+}
+```
+
+###### Feign整合Sentinel配置
+
+- 整合步骤
+
+  - 加入依赖
+
+  ```
+  <dependency>
+      <groupId>com.alibaba.cloud</groupId>
+      <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+  </dependency>
+  ```
+
+  - 开启Feign对Sentinel的支持
+
+  ```
+  feign:
+    sentinel:
+      enabled: true
+  ```
+
+  - 创建容错类, 实现对应的服务接口, 记得加注解 @Service
+
+  ```
+  @Service
+  public class VideoServiceFallback implements VideoService {
+      @Override
+      public Video findById(int videoId) {
+          Video video = new Video();
+          video.setTitle("熔断降级数据");
+          return video;
+      }
+  
+      @Override
+      public Video saveVideo(Video video) {
+          return null;
+      }
+  }
+  
+  ```
+
+  - 配置feign容错类
+
+  ```
+  @FeignClient(value = "xdclass-video-service", fallback = VideoServiceFallback.class)
+  ```
+
+#### 网关
+
+##### 基础知识
+
+- 网关
+  - API Gateway，是系统的唯一对外的入口，介于客户端和服务器端之间的中间层，处理非业务功能 提供路由请求、鉴权、监控、缓存、限流等功能
+  - 统一接入
+    - 智能路由
+    - AB测试、灰度测试
+    - 负载均衡、容灾处理
+    - 日志埋点（类似Nignx日志）
+  - 流量监控
+    - 限流处理
+    - 服务降级
+  - 安全防护
+    - 鉴权处理
+    - 监控
+    - 机器网络隔离
+- 主流的网关
+  - zuul：是Netflix开源的微服务网关，和Eureka,Ribbon,Hystrix等组件配合使用，依赖组件比较多，性能教差
+  - kong: 由Mashape公司开源的，基于Nginx的API gateway
+  - nginx+lua：是一个高性能的HTTP和反向代理服务器,lua是脚本语言，让Nginx执行Lua脚本，并且高并发、非阻塞的处理各种请求
+  - springcloud gateway: Spring公司专门开发的网关，替代zuul
+
+![image-20201116185905741](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201116185905741.png)
+
+##### 配置
+
+- 加入依赖
+
+  ```
+   <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-gateway</artifactId>
+  </dependency>
+  ```
+
+- 配置
+
+  ```
+  server:
+    port: 8888
+  spring:
+    application:
+      name: api-gateway
+    cloud:
+      gateway:
+        routes: #数组形式
+          - id: order-service  #路由唯一标识
+            uri: http://127.0.0.1:8000  #想要转发到的地址
+            order: 1 #优先级，数字越小优先级越高
+            predicates: #断言 配置哪个路径才转发
+              - Path=/order-server/**
+            filters: #过滤器，请求在传递过程中通过过滤器修改
+              - StripPrefix=1  #去掉第一层前缀
+  
+  #访问路径 http://localhost:8888/order-server/api/v1/video_order/list
+  #转发路径 http://localhost:8000/order-server/api/v1/video_order/list  
+  #需要过滤器去掉前面第一层
+  ```
+
+##### gateway整合nacos
+
+- 原先存在的问题
+
+  - 微服务地址写死
+  - 负载均衡没做到
+
+- 添加Nacos服务治理配置
+
+  - 网关添加naocs依赖
+
+  ```
+          <!--添加nacos客户端-->
+          <dependency>
+              <groupId>com.alibaba.cloud</groupId>
+              <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+          </dependency>
+  ```
+
+  - 启动类开启支持
+
+  ```
+  @EnableDiscoveryClient
+  ```
+
+  - 修改配置文件
+
+  ```
+  server:
+    port: 8888
+  spring:
+    application:
+      name: api-gateway
+    cloud:
+      nacos:
+        discovery:
+          server-addr: 127.0.0.1:8848
+  
+      gateway:
+        routes: #数组形式
+          - id: order-service  #路由唯一标识
+            #uri: http://127.0.0.1:8000  #想要转发到的地址
+            uri: lb://xdclass-order-service  # 从nacos获取名称转发,lb是负载均衡轮训策略
+  
+            predicates: #断言 配置哪个路径才转发
+              - Path=/order-server/**
+            filters: #过滤器，请求在传递过程中通过过滤器修改
+              - StripPrefix=1 #去掉第一层前缀
+        discovery:
+          locator:
+            enabled: true  #开启网关拉取nacos的服务
+  
+  
+  ## 访问路径 http://localhost:8888/order-server/api/v1/video_order/list
+  ```
+
+##### 断言+过滤
+
+业务流程
+
+![image-20201116191730944](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/image-20201116191730944.png)
+
+- 需求：接口需要在指定时间进行下线，过后不可以在被访问
+  - 使用Before ,只要当前时间小于设定时间，路由才会匹配请求
+  - 东8区的2020-09-11T01:01:01.000+08:00后，请求不可访问
+  - 为了方便测试，修改时间即可
+
+```
+predicates:
+  - Before=2020-09-09T01:01:01.000+08:00
+```
+
+- 过滤器
+
+  - 局部过滤器GatewayFilter：应用在某个路由上,每个过滤器工厂都对应一个实现类，并且这些类的名称必须以 GatewayFilterFactory 结尾
+  - 全局过滤器：作用全部路由上,
+
+- 自定义全局过滤器实现鉴权
+
+  ```
+  @Component
+  public class UserGlobalFilter implements GlobalFilter,Ordered {
+      @Override
+      public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+  
+          String token = exchange.getRequest().getHeaders().getFirst("token");
+  
+          System.out.println(token);
+          if(StringUtils.isBlank(token)){
+              exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+              return exchange.getResponse().setComplete();
+          }
+  
+          //继续往下执行
+          return chain.filter(exchange);
+  
+      }
+  
+      //数字越小，优先级越高
+      @Override
+      public int getOrder() {
+          return 0;
+      }
+  }
+  
+  ```
+
+- 注意：网关不要加太多业务逻辑，否则会影响性能，务必记住
+
+####  链路追踪
+
+##### 追踪组件Sleuth
+
+- 什么是Sleuth
+  - 一个组件，专门用于记录链路数据的开源组件
+  - 文档：https://spring.io/projects/spring-cloud-sleuth
+  - 案例
+
+```
+    [order-service,96f95a0dd81fe3ab,852ef4cfcdecabf3,false]
+    
+    第一个值，spring.application.name的值
+    
+    第二个值，96f95a0dd81fe3ab ，sleuth生成的一个ID，叫Trace ID，用来标识一条请求链路，一条请求链路中包含一个Trace ID，多个Span ID
+    
+    第三个值，852ef4cfcdecabf3、spanid 基本的工作单元，获取元数据，如发送一个http
+    
+    第四个值：false，是否要将该信息输出到zipkin服务中来收集和展示。
+```
+
+
+
+- 各个微服务添加依赖
+
+```
+<dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+```
+
+##### 链路追踪系统Zipkin
+
+- 什么是zipkin
+
+  - 官网
+    - https://zipkin.io/
+    - https://zipkin.io/pages/quickstart.html
+  - 大规模分布式系统的APM工具（Application Performance Management）,基于Google Dapper的基础实现，和sleuth结合可以提供可视化web界面分析调用链路耗时情况
+
+- 同类产品
+
+  - 鹰眼（EagleEye）
+  - CAT
+  - twitter开源zipkin，结合sleuth
+  - Pinpoint，运用JavaAgent字节码增强技术
+
+- StackDriver Trace (Google)
+
+  
+
+- 开始使用
+
+  - 安装包在资料里面，启动服务
+
+  ```
+  java -jar zipkin-server-2.12.9-exec.jar
+  ```
+
+  - 访问入口：http://127.0.0.1:9411/zipkin/
+  - zipkin组成：Collector、Storage、Restful API、Web UI组成
+
+![architecture-1](C:/Users/tarena/AppData/Roaming/Typora/draftsRecover/AlibabaCloud-docker/architecture-1.png)
+
+##### Zipkin+Sleuth整合
+
+- sleuth收集跟踪信息通过http请求发送给zipkin server
+- zipkin server进行跟踪信息的存储以及提供Rest API即可
+- Zipkin UI调用其API接口进行数据展示默认存储是内存，可也用mysql 或者elasticsearch等存储
+- 微服务加入依赖
+
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+```
+
+- 配置地址和采样百分比配置
+
+```
+spring:
+  application:
+    name: api-gateway
+  zipkin:
+    base-url: http://127.0.0.1:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分比
+默认为0.1，即10%，这里配置1，是记录全部的sleuth信息，是为了收集到更多的数据（仅供测试用）。
+在分布式系统中，过于频繁的采样会影响系统性能，所以这里配置需要采用一个合适的值。
+```
+
+##### 链路追踪日志持久化
+
+- 现存在的问题
+
+  - 服务重启会导致链路追踪系统数据丢失
+
+- 持久化配置：mysql或者elasticsearch
+
+  - 创建数据库表SQL脚本
+  - 启动命令
+
+  ```
+  java -jar zipkin-server-2.12.9-exec.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_DB=zipkin_log --MYSQL_USER=root --MYSQL_PASS=xdclass.net
+  ```
+
+#### nacos配置中心
+
+##### 基础知识
+
+- 配置中心：
+  - 一句话：统一管理配置, 快速切换各个环境的配置
+- 相关产品：
+  - 百度的disconf 地址:https://github.com/knightliao/disconf
+  - 阿里的diamand 地址：https://github.com/takeseem/diamond
+  - springcloud的configs-server: 地址：http://cloud.spring.io/spring-cloud-config/
+  - 阿里的Nacos:既可以当服务治理，又可以当配置中心，Nacos = Eureka + Config
+
+##### 配置
+
+- 项目添加依赖
+
+```
+ <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+</dependency>
+```
+
+- 配置文件优先级讲解（坑）
+
+  - 不能使用原先的application.yml, 需要使用bootstrap.yml作为配置文件
+  - 配置读取优先级 bootstrap.yml > application.yml
+
+- 配置实操
+
+  - 订单服务迁移配置
+  - 增加bootstrap.yml
+
+  ```
+  spring:
+    application:
+      name: xdclass-order-service
+    cloud:
+      nacos:
+        config:
+          server-addr: 127.0.0.1:8848 #Nacos配置中心地址
+          file-extension: yaml #文件拓展格式
+  
+    profiles:
+      active: dev
+  
+  ```
+
+- 启动微服务服务验证
+
+  - 测试是否可以获取配置
+
+### 整合docker
+
+#### 配置
+
+- 父项目添加springboot版本依赖
+
+```
+ <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
+  </properties>
+```
+
+- 每个子模块项目添加依赖
+
+```
+//配置文件增加
+<docker.image.prefix>PREFIX_ANYTHING</docker.image.prefix>
+
+
+<build>
+        <finalName>alibaba-cloud-gateway</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <configuration>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+- Spotify 的 docker-maven-plugin 插件是用maven插件方式构建docker镜像的。
+
+```
+${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}
+```
+
+#### 打包
+
+- 创建Dockerfile,默认是根目录，（可以修改为src/main/docker/Dockerfile,如果修则需要制定路径）
+
+- 什么是Dockerfile
+
+  - 由一系列命令和参数构成的脚本，这些命令应用于基础镜像, 最终创建一个新的镜像
+
+  ```
+  FROM  adoptopenjdk/openjdk11:ubi
+  VOLUME /tmp
+  ARG JAR_FILE
+  COPY ${JAR_FILE} app.jar
+  ENTRYPOINT ["java","-jar","/app.jar"]
+  
+  
+  FROM <image>:<tag> 需要一个基础镜像，可以是公共的或者是私有的，
+  后续构建会基于此镜像，如果同一个Dockerfile中建立多个镜像时，可以使用多个FROM指令
+        
+  VOLUME  配置一个具有持久化功能的目录，主机 /var/lib/docker 目录下创建了一个临时文件，并链接到容器的/tmp。改步骤是可选的，如果涉及到文件系统的应用就很有必要了。
+  /tmp目录用来持久化到 Docker 数据文件夹，因为 Spring Boot 使用的内嵌 Tomcat 容器默认使用/tmp作为工作目录 
+  
+  ARG  设置编译镜像时加入的参数， JAR_FILE 是设置容器的环境变量(maven里面配置的)
+  COPY : 只支持将本地文件复制到容器 ,还有个ADD更强大但复杂点
+  ENTRYPOINT 容器启动时执行的命令
+  
+  EXPOSE 8080 暴露镜像端口
+  ```
+
+- 构建镜像( 去到子模块pom文件下，不然启动时会报错)
+
+  ```
+  mvn install -Dmaven.test.skip=true dockerfile:build
+  //no main manifest attribute, in /app.jar   xxx.jar中没有主清单属性
+  ```
+
+##### 推送仓库
+
+- https://cr.console.aliyun.com/repository/cn-beijing/zyaire-cloud/gateway/details
+
+  自己阿里云容器镜像仓库有操作手册
+
+#### 部署
+
+##### docker部署nacos
+
+- 拉取特别慢
+
+```
+路径/etc/docker/daemon.json 增加下面的配置
+{
+  "registry-mirrors": ["https://pb5bklzr.mirror.aliyuncs.com"]
+}
+
+//重启
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+- docker拉取镜像
+
+```
+docker pull nacos/nacos-server
+```
+
+- 查看镜像
+
+```
+docker images
+```
+
+- 启动Nacos
+
+```
+docker run --env MODE=standalone --name xdclass-nacos -d -p 8848:8848 ef8e53226440 (镜像id)
+
+//查看日志
+docker logs -f 
+```
+
+- 访问Nacos（记得开放阿里云的网络安全组）
+
+```
+http://公网ip:8848/nacos
+
+# 登录密码默认nacos/nacos
+```
+
+- 注意docker要启动
+
+```
+[root@zyaire ~]# docker pull nacos/nacos-server
+Using default tag: latest
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+```
+
+- 机器配置，nacos安装在高配机器
+
+```
+2 vCPU 1 GiB (安装了Mysql/Zipkin服务)
+
+2 vCPU 4 GiB（安装了Nacos、Sentinel、网关、视频服务、订单服务）
+```
+
+##### docker部署sentinel
+
+- docker拉取镜像
+
+```
+docker pull bladex/sentinel-dashboard:latest
+```
+
+- 查看镜像
+
+```
+docker images
+```
+
+- 启动Sentinel
+
+```
+docker run --name sentinel -d -p 8858:8858  镜像id
+```
+
+- 访问Sentinel（记得开放阿里云的网络安全组）
+
+```
+http://公网ip:8858
+
+# 登录密码默认sentinel/sentinel
+```
+
+- 机器配置, 安装在高配机器(就是微服务同个宿主机)
+
+```
+2 vCPU 1 GiB (安装了Mysql/Zipkin服务)
+
+2 vCPU 4 GiB（安装了Nacos、Sentinel、网关、视频服务、订单服务）
+```
+
+##### Docker部署Zipkin
+
+- docker拉取镜像
+
+```
+docker pull openzipkin/zipkin:latest
+```
+
+- 查看镜像
+
+```
+docker images
+```
+
+- 启动Zipkin
+
+```
+docker run --name xdclass-zipkin -d -p 9411:9411 镜像id
+```
+
+- 访问zipkin（记得开放阿里云的网络安全组）
+
+```
+http://公网ip:9411/zipkin/
+```
+
+- 机器配置, 部署在低配服务器
+
+```
+120.24.216.117(公)
+
+2 vCPU 4 GiB（安装了Nacos、Sentinel、网关、视频服务、订单服务）
+```
+
+##### 快速安装mysql
+
+```
+#下载mysql的Yum仓库
+wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+
+yum -y install mysql57-community-release-el7-10.noarch.rpm
+
+#安装 mysql服务
+yum -y install mysql-community-server
+
+#启动数据库服务， systemctl 该命令可用于查看系统状态和管理系统及服务，centos7上开始使用
+systemctl start  mysqld.service
+
+#查看状态
+systemctl status mysqld.service
+
+#在日志文件中查看初始密码
+grep "password" /var/log/mysqld.log
+
+#进入修改Mysql密码
+
+mysql -uroot -p
+
+#新密码设置必须由大小写字母、数字和特殊符号组成
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Xdclass.net168';
+
+#开启mysql的远程访问， %是指全部
+grant all privileges on *.* to 'root'@'%' identified by 'Xdclass.net168' with grant option;
+
+#刷新权限
+flush privileges; 
+```
+
+##### 开启
+
+- 记得打开网关的端口
