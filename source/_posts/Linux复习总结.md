@@ -957,9 +957,8 @@ cat /etc/passwd | grep '/bin/bash' | cut -d ':' -f 1 | grep -v root
    export JRE_HOME=$JAVA_HOME/jre
    export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
    export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
-   java version "1.8.0_211"
    ```
-
+   
 2. 加载环境变量：
 
    ```

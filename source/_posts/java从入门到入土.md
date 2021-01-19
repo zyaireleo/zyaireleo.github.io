@@ -94,7 +94,7 @@ description: 主要记录一些jdk的新操作
 
 - 计算日期时间差
 
-  ```
+  ```java
   LocalDateTime today = LocalDateTime.now();
   System.out.println(today);
   LocalDateTime changeDate = LocalDateTime.of(2020,10,1,10,40,30);
@@ -261,7 +261,7 @@ description: 主要记录一些jdk的新操作
 
   实现操作
 
-  ```
+  ```java
   public static void main(String[] args) throws Exception {
    	System.out.println(operator(20, 5, (Integer x, Integer y) -> {
    		return x * y;

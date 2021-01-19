@@ -1204,12 +1204,13 @@ make install
   
   - 下载：http://openresty.org/en/linux-packages.html#centos
   
-
-    # add the yum repo:
+add the yum repo:
+  
     wget https://openresty.org/package/centos/openresty.repo
     sudo mv openresty.repo /etc/yum.repos.d/
   
-    # update the yum index:
+  update the yum index:
+  
     sudo yum check-update
   
     sudo yum install openresty
@@ -1217,17 +1218,18 @@ make install
     #安装命令行工具
     sudo yum install openresty-resty
   
-    # 列出所有 openresty 仓库里的软件包
+  列出所有 openresty 仓库里的软件包
+  
     sudo yum --disablerepo="*" --enablerepo="openresty" list available
   
-    #查看版本
+  #查看版本
     resty -V
-
+  
 - Nginx+OpenRestry开发
 
-  ```
-  编辑：/usr/local/openresty/nginx/conf/nginx.conf
+  **编辑：/usr/local/openresty/nginx/conf/nginx.conf**
   
+  ```
   http{
       # 虚拟机主机块
       server{
@@ -1242,8 +1244,11 @@ make install
           }
       }
   }
+  ```
   
-  #使用其他方式
+  **使用其他方式**
+  
+  ```
   http{
       # 虚拟机主机块,还需要配置lua文件扫描路径
       lua_package_path "$prefix/lualib/?.lua;;";
@@ -1257,11 +1262,8 @@ make install
               content_by_lua_file lua/xdclass.lua;
           }
       }
-  }
-  
+}
   ```
-
-  
 
 - 启动Nginx（直接用openresty里面的nginx即可，默认安装了多个模块）
 
