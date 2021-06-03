@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>如今听雨僧庐下 - 归去</title><meta name="keywords" content="个人博客了啦。"><meta name="author" content="Zyaire"><meta name="copyright" content="Zyaire"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="除了技术菜，其他都还好。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="如今听雨僧庐下">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="如今听雨僧庐下">
+<meta property="og:description" content="除了技术菜，其他都还好。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:author" content="Zyaire">
+<meta property="article:tag" content="个人博客了啦。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-06-03 15:18:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tzki/tzki.github.io/css/pool.css"><link rel="stylesheet" href="css/background.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> HOME</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> ARTICLE</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> LABEL</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> CATEGORY</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> LINK</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard"><i class="fa-fw fa fa-paper-plane"></i><span> MESSAGEBOARD</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> ABOUT</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">如今听雨僧庐下</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> HOME</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> ARTICLE</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> LABEL</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> CATEGORY</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> LINK</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard"><i class="fa-fw fa fa-paper-plane"></i><span> MESSAGEBOARD</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> ABOUT</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site-title">如今听雨僧庐下</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/12/17/Tengine/" title="Tengine">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tengine"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/12/17/Tengine/" title="Tengine">Tengine</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-17T08:06:23.000Z" title="发表于 2020-12-17 16:06:23">2020-12-17</time></span></div><div class="content">getStarted什么是tengine基于nginx，视为nginx加强版。是一个HTTP服务器、反向代理服务器以及负载均衡器。位于七层网路模型的第七层（看得见URL），后面讲的LVS位于第四层。
+类似的HTTP服务器还有Apache的HTPPd，微软的lls。
+nginx的优点：轻量级。抗并发，异步非阻塞IO模型。社区活跃。配置简洁。httpd的优点：apachehttpd的优点成熟，模块多，bug少。urlRewrite十分成熟。
+
+安装​    和nginx一样
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/12/16/jmeter%E6%8E%A5%E5%8F%A3%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" title="jmeter接口压力测试">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="jmeter接口压力测试"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/12/16/jmeter%E6%8E%A5%E5%8F%A3%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" title="jmeter接口压力测试">jmeter接口压力测试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-16T01:13:02.000Z" title="发表于 2020-12-16 09:13:02">2020-12-16</time></span></div><div class="content">GetStarted常用压测工具
+loadrunner
+
+性能稳定，压测结果及细粒度大，可以自定义脚本进行压测，但是太过于重大，功能比较繁多
+
+
+apache ab(单接口压测最方便)
+
+模拟多线程并发请求,ab命令对发出负载的计算机要求很低，既不会占用很多CPU，也不会占用太多的内存，但却会给目标服务器造成巨大的负载, 简单DDOS攻击等
+
+
+webbench
+
+webbench首先fork出多个子进程，每个子进程都循环做web访问测试。子进程把访问的结果通过pipe告诉父进程，父进程做最终的统计结果。
+
+jmeter基本介绍
+压测不同的协议和应用
+
+1) Web - HTTP, HTTPS (Java, NodeJS, PHP, ASP.NET, …)2) SOAP &#x2F; REST Webservices3) FTP4) Database via JDBC5) LDAP  轻量目录访问协议6) Message-oriented middleware (MOM) via JMS 7) Mail - SMTP(S), POP3(S) and IMAP(S)8) TCP等等
+
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/12/08/Oracle%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Oracle学习笔记">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oracle学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/12/08/Oracle%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Oracle学习笔记">Oracle学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-08T00:59:37.000Z" title="发表于 2020-12-08 08:59:37">2020-12-08</time></span></div><div class="content">安装环境：Windows10+Oracle11g +Oracle Developer19.2
+基本语法DCL添加注释--为表添加注释COMMENT ON TABLE EAMP IS &#x27;雇员表&#x27;;--为列添加注释COMMENT ON COLLUMN EMP.EMPNO IS &#x27;雇员工号&#x27;;
+
+
+
+DML
+海量数据操作
+
+数据泵 \  SQL Loader\ 外部表
+
+
+删除表
+
+--delete  truncate dropdelete from emp  ; --可以回退truncate table emp  ;--不能回退--原因： DML：insert  update  delete  -&gt;可以回退
+
+测试二者执行时间		打开执行时间：	set timing on&#x2F;off对于少量数据： delete 效率高  ，一行一行删除对于海量数据：truncate效率高 ，  a.drop table 丢弃整张表 ，b.重新创建表delete支持闪回， truncate不支持闪回delete不会释放空间 （换两个地方存储数据[undo空 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/11/21/java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="java虚拟机">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java虚拟机"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/21/java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="java虚拟机">java虚拟机</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-21T01:18:57.000Z" title="发表于 2020-11-21 09:18:57">2020-11-21</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java/">java</a></span></div><div class="content">起步运行时数据区Java内存区域分布与概述
+线程私有内存区域：java虚拟机栈、程序技术器、本地方法栈。生命周期和线程的生命周期一致。
+
+
+Java语言为甚么优势巨大，一处编译随处运行
+
+Java的另外一个优势
+
+自从内存管理机制之下，不再需要为没一个new操作去写配对的内存分配和回收等代码，不容易出现内存泄漏和内存溢出等问题
+
+
+JVM运行时数据区分布图讲解
+
+线程共享数据区：方法区、堆
+线程隔离数据区：虚拟机栈、本地方法栈、堆、程序计数器
+
+
+
+Java内存区域程序计算器
+是什么？
+
+程序计数器是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器
+
+线程是一个独立的执行单元，是由CPU控制执行的
+
+字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成
+
+查看.class文件行号
+创建User类
+
+javac User.java编译
+javap -l User.class查看如下
+
+
+
+
+为什么要有？
+
+为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/11/18/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%B2%99%E7%AE%B1%E6%94%AF%E4%BB%98deomo/" title="支付宝沙箱支付demo">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="支付宝沙箱支付demo"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/18/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%B2%99%E7%AE%B1%E6%94%AF%E4%BB%98deomo/" title="支付宝沙箱支付demo">支付宝沙箱支付demo</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-18T07:35:06.000Z" title="发表于 2020-11-18 15:35:06">2020-11-18</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/11/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" title="并发编程入门">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="并发编程入门"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" title="并发编程入门">并发编程入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-18T06:46:21.000Z" title="发表于 2020-11-18 14:46:21">2020-11-18</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java/">Java</a></span></div><div class="content">起步概念入门什么是并发编程
+什么是并发编程
+并发历史: 早期计算机–从头到尾执行一个程序，资源浪费 操作系统出现–计算机能运行多个程序，不同的程序在不同的单独的进程中运行
+
+
+一个进程，有多个线程 提高资源的利用率，公平
+
+串行与并行的区别
+串行：洗茶具、打水、烧水、等水开、冲茶 并行：打水、烧水同时洗茶具、水开、冲茶
+好处：可以缩短整个流程的时间
+
+并发编程目的
+摩尔定律：当价格不变时，集成电路上可容纳的元器件的数目，约每隔18-24个月便会增加一倍，性能也将提升一倍。这一定律揭示了信息技术进步的速度。 让程序充分利用计算机资源 加快程序响应速度（耗时任务、web服务器） 简化异步事件的处理
+
+什么时候适合使用并发编程
+任务会阻塞线程，导致之后的代码不能执行：比如一边从文件中读取，一边进行大量计算的情况 任务执行时间过长，可以划分为分工明确的子任务：比如分段下载 任务间断性执行：日志打印 任务本身需要协作执行：比如生产者消费者问题
+
+
+上下文切换什么是上下文切换
+
+cpu为线程分配时间片，时间片非常短（毫秒级别），cpu不停的切换线程执行，在切换前会保存上一个任务的状态，以便下次切换 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/11/13/Mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E7%B3%BB%E5%88%97/" title="Mysql必知必会系列">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mysql必知必会系列"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/13/Mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E7%B3%BB%E5%88%97/" title="Mysql必知必会系列">Mysql必知必会系列</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-13T04:20:26.000Z" title="发表于 2020-11-13 12:20:26">2020-11-13</time></span></div><div class="content">起步数据库操纵语言分类
+DDL 数据定义语言 (Data Definition Language) 例如：建库，建表
+DML 数据操纵语言(Data Manipulation Language) 例如：对表中的数据进行增删改操作
+DQL 数据查询语言(Data Query Language) 例如：对数据进行查询
+DCL 数据控制语言(Data Control Language) 例如：对用户的权限进行设置
+
+DDL 数据定义语言
+创建表
+CREATE TABLE 表名 (                  字段名1 字段类型1 约束条件1 说明1,                  字段名2 字段类型2 约束条件2 说明2,                  字段名3 字段类型3 约束条件3 说明3                  );create table 新表名 as select * from 旧表名 where 1&#x3D;2;(注意：建议这种创建表的方式用于日常测试，因  为可能索引什么的会复制不过来)create table 新表名 like 旧表名;
+
+约束条件
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/11/10/AlibabaCloud-docker/" title="AlibabaCloud-docker">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AlibabaCloud-docker"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/10/AlibabaCloud-docker/" title="AlibabaCloud-docker">AlibabaCloud-docker</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-10T11:30:12.000Z" title="发表于 2020-11-10 19:30:12">2020-11-10</time></span></div><div class="content">引言微服务架构常见核心组件
+网关
+路由+过滤器
+
+
+服务注册发现
+调用和被调用方的信息维护
+
+
+配置中心
+管理配置，动态更新 application.properties
+
+
+链路追踪
+分析调用链路耗时，保存数据库
+
+
+负载均衡器
+分发流量到多个节点，降低压力
+
+
+熔断
+保护自己和被调用方
+
+
+
+微服务架构常见解决方案
+ServiceComb
+华为内部的CSE(Cloud Service Engine)框架开源, 一个微服务的开源解决方案,社区相对于下面几个比较小
+文档不多，通信领域比较强
+
+
+dubbo
+zookeeper + dubbo + springmvc/springboot
+官方地址：http://dubbo.apache.org/#!/?lang=zh-cn
+配套
+通信方式：rpc
+注册中心：zookeper/redis/nacos
+配置中心：diamond、nacos
+
+
+
+
+SpringCloud
+全家桶+轻松嵌入第三方组件(Netflix 奈飞)
+官网：https://spring.io/projects/spring-cloud
+配套
+通信方式：http rest ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/11/07/nginx%E6%95%B4%E5%90%88openResty-lua-%E9%AB%98%E5%8F%AF%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="nginx整合openResty+lua+高可用解决方案">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx整合openResty+lua+高可用解决方案"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/07/nginx%E6%95%B4%E5%90%88openResty-lua-%E9%AB%98%E5%8F%AF%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="nginx整合openResty+lua+高可用解决方案">nginx整合openResty+lua+高可用解决方案</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-07T07:17:20.000Z" title="发表于 2020-11-07 15:17:20">2020-11-07</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a></span></div><div class="content">入门介绍
+环境搭建:
+Nginx-1.18版本 + openresty-1.17.8.2 + LVS
+操作系统：阿里云Linux Centos7 64位 + 本地虚拟机Centos7 64位
+
+大概内容
+
+搭建前端静态资源服务器、文件服务器、BAT大厂自研运维平台数据统计案例
+负载均衡Upstream配置实战、后端节点高可用性探测、全局异常兜底数据配置
+Nginx封禁恶意IP、配置跨域、location和rewrite实战
+Websocket配置、后端业务数据缓存前置、静态资源压缩
+阿里云ECS部署Nginx + HTTPS证书
+高级拓展Nginx整合Openresty开发内网访问限制、文件资源下载限速实现原理
+Nginx高可用解决访问 LVS + KeepAlived讲解+多节点配置实操
+Nginx架构Master-Work多进程模型
+
+
+容易采坑的点：
+
+就是配置多，没有比较好的编辑器
+很多错误配置，就是配置少加了 英文分号 ; 或者用了中文的； 或者防火墙问题，或者配置多了空格等特殊字符。
+
+
+
+入门
+Nginx介绍
+
+官网：http://nginx.org/
+是一个高性能的[H ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/11/06/shiro%E6%9D%83%E9%99%90%E6%A1%86%E6%9E%B6/" title="shiro权限框架">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shiro权限框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/11/06/shiro%E6%9D%83%E9%99%90%E6%A1%86%E6%9E%B6/" title="shiro权限框架">shiro权限框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-06T01:57:15.000Z" title="发表于 2020-11-06 09:57:15">2020-11-06</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java/">Java</a></span></div><div class="content">起步基础概念
+什么是权限控制：
+忽略特别细的概念，比如权限能细分很多种，功能权限，数据权限，管理权限等
+理解两个概念：用户和资源，让指定的用户，只能操作指定的资源（CRUD）
+
+
+初学javaweb时怎么做
+Filter接口中有一个doFilter方法，自己编写好业务Filter，并配置对哪个web资源进行拦截后
+如果访问的路径命中对应的Filter，则会执行doFilter()方法，然后判断是否有权限进行访问对应的资源
+/api/user/info?id=1
+
+
+
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)            throws Exception &#123;        HttpServletRequest httpRequest&#x3D;(HttpServletRequest)request;        HttpServletResponse httpResponse&#x3D;(HttpServletResponse)r ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Zyaire</div><div class="author-info__description">除了技术菜，其他都还好。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/12/17/Tengine/" title="Tengine"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tengine"/></a><div class="content"><a class="title" href="/2020/12/17/Tengine/" title="Tengine">Tengine</a><time datetime="2020-12-17T08:06:23.000Z" title="发表于 2020-12-17 16:06:23">2020-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/16/jmeter%E6%8E%A5%E5%8F%A3%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" title="jmeter接口压力测试"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="jmeter接口压力测试"/></a><div class="content"><a class="title" href="/2020/12/16/jmeter%E6%8E%A5%E5%8F%A3%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" title="jmeter接口压力测试">jmeter接口压力测试</a><time datetime="2020-12-16T01:13:02.000Z" title="发表于 2020-12-16 09:13:02">2020-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/08/Oracle%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Oracle学习笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oracle学习笔记"/></a><div class="content"><a class="title" href="/2020/12/08/Oracle%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Oracle学习笔记">Oracle学习笔记</a><time datetime="2020-12-08T00:59:37.000Z" title="发表于 2020-12-08 08:59:37">2020-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/21/java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="java虚拟机"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java虚拟机"/></a><div class="content"><a class="title" href="/2020/11/21/java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="java虚拟机">java虚拟机</a><time datetime="2020-11-21T01:18:57.000Z" title="发表于 2020-11-21 09:18:57">2020-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/18/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%B2%99%E7%AE%B1%E6%94%AF%E4%BB%98deomo/" title="支付宝沙箱支付demo"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="支付宝沙箱支付demo"/></a><div class="content"><a class="title" href="/2020/11/18/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%B2%99%E7%AE%B1%E6%94%AF%E4%BB%98deomo/" title="支付宝沙箱支付demo">支付宝沙箱支付demo</a><time datetime="2020-11-18T07:35:06.000Z" title="发表于 2020-11-18 15:35:06">2020-11-18</time></div></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/java/"><span class="card-category-list-name">java</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"><span class="card-category-list-name">中间件</span><span class="card-category-list-count">1</span></a></li>
+            
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/alibabacloud/" style="font-size: 1.1em; color: #999">AlibabaCloud</a> <a href="/tags/docker/" style="font-size: 1.1em; color: #999">docker</a> <a href="/tags/git-gitlab-jekenis/" style="font-size: 1.1em; color: #999">git gitlab jekenis</a> <a href="/tags/java/" style="font-size: 1.1em; color: #999">java</a> <a href="/tags/jdk/" style="font-size: 1.1em; color: #999">jdk</a> <a href="/tags/jvm-java-%E5%BF%85%E4%BF%AE/" style="font-size: 1.1em; color: #999">jvm java 必修</a> <a href="/tags/nginx/" style="font-size: 1.5em; color: #99a9bf">nginx</a> <a href="/tags/springboot-shiro-%E9%89%B4%E6%9D%83/" style="font-size: 1.1em; color: #999">springboot shiro 鉴权</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-jvm-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.1em; color: #999">并发编程 jvm 设计模式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">测试</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/12/"><span class="card-archive-list-date">十二月 2020</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">13</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">16</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-06-03T07:18:20.495Z"></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Zyaire</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
