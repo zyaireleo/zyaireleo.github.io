@@ -1,7 +1,7 @@
 ---
-title: do do docker
-date: 2020-11-04 10:15:44
-tags: docker
+title: docker
+date: 2021-7-06 09:57:15
+tags: java
 ---
 
 #### 简介
@@ -24,16 +24,21 @@ tags: docker
   ```
   1、提供一次性的环境，假如需要安装Mysql，则需要安装很多依赖库、版本等，如果使用Docker则通过镜像就
   可以直接启动运行
-  2、快速动态扩容，使用docker部署了一个应用，可以制作成镜像，然后通过Dokcer快速启动
+  2、快速动态扩容，使用docker部署了一个应用，可以制作成镜像，然后通过Docker快速启动
   3、组建微服务架构，可以在一个机器上模拟出多个微服务，启动多个应用
   4、更好的资源隔离和共享
   ```
 
+- docker生态
+  - 仓库repository
+  - 镜像image
+  - 容器container]
+- docker架构
+  - docker引擎架构
+  - docker网络架构
+  - docker安全架构
+
 #### 安装
-
-- Windows:
-
-  ​	懂的都懂
 
 - Linux:
 
@@ -51,19 +56,19 @@ tags: docker
     [root@zyaire yum.repos.d]# wget http://mirrors.aliyun.com/dockerce/linux/centos/docker-ce.repo
     ```
 
-  - 查看docker安装包：yum list | grep docker
+  - 查看docker安装包：`yum list | grep docker`
 
-  - 安装Docker Ce 社区版本：yum install -y docker-ce.x86_64 
+  - 安装Docker Ce 社区版本：`yum install -y docker-ce.x86_64 `
 
-  - 设置开机启动：systemctl enable docker 
+  - 设置开机启动：`systemctl enable docker `
 
-  - 更新xfsprogs：yum -y update xfsprogs 
+  - 更新xfsprogs：`yum -y update xfsprogs `
 
-  - 启动docker：systemctl start docker 
+  - 启动docker：`systemctl start docker `
 
-  - 查看版本：docker version 
+  - 查看版本：`docker version` 
 
-  - 查看详细信息：docker info
+  - 查看详细信息：`docker info`
 
   DuangDuangDuang, 还有个更简便的安装方法,看:
 
@@ -71,46 +76,54 @@ tags: docker
   https://help.aliyun.com/document_detail/51853.html?spm=a2c4g.11186623.6.820.RaToNY
   ```
 
+  - 配置加速
   
+  ```
+  https://cr.console.aliyun.com/cn-beijing/instances/mirrors
+  ```
 
 #### 入门命令
 
 ##### 查看和删除
 
-- 查看本地镜像： docker images 
+- 查看本地镜像：` docker images `
+- 搜索镜像：`docker search centos `
+- 搜索镜像并过滤是官方的： `docker search --filter "is-official=true" centos `
+- 搜索镜像并过滤大于多少颗星星的：`docker search --filter stars=10 centos `
+- 下载centos7镜像：`docker pull centos:7 `
+- 修改本地镜像名字（小写）：`docker tag centos:7 mycentos:1`
+- 本地镜像的删除：`docker rmi centos:7`
+- 镜像导出：`docker import centos:7 centos.tar`
+- 镜像导入：`docker import centos:7 centos.tar`
 
-- 搜索镜像：docker search centos 
-- 搜索镜像并过滤是官方的： docker search --filter "is-official=true" centos 
-- 搜索镜像并过滤大于多少颗星星的：docker search --filter stars=10 centos 
-- 下载centos7镜像：docker pull centos:7 
-- 修改本地镜像名字（小写）：docker tag centos:7 mycentos:1
-- 本地镜像的删除：docker rmi centos:7
+![image-20210419095156882](.\docker/基础命令总览.png)
 
 ##### 配置阿里云镜像
 
-- 配置步骤参考阿里文档:[https://cr.console.aliyun.com/cnbeijing/instances/mirrors](https://cr.console.aliyun.com/cnbeijing/instances/mirrors)
+- 配置步骤参考阿里文档:`https://cr.console.aliyun.com/cnbeijing/instances/mirrors`
 
 ##### 创建查看重启停止
 
-- 构建容器：docker run -itd --name=mycentos centos:7 
+- 构建容器：`docker run -itd --name=mycentos centos:7 `
   - -i ：表示以交互模式运行容器（让容器的标准输入保持打开）
   - -d：表示后台运行容器，并返回容器ID 
-  - -t：为容器重新分配一个伪输入终端 { "registry-mirrors": ["https://5xok66d4.mirror.aliyuncs.com"] } 
+  - -t：为容器重新分配一个伪输入终端 
   - --name：为容器指定名称 查看本地所有的容器：docker ps -a 查看本地正在运行的容器：docker ps 
-- 停止容器：docker stop CONTAINER_ID / CONTAINER_NAME 
-- 一次性停止所有容器：docker stop $(docker ps -a -q) 
-- 启动容器：docker start CONTAINER_ID / CONTAINER_NAME 
-- 重启容器：docker restart CONTAINER_ID / CONTAINER_NAME
--  删除容器：docker rm CONTAINER_ID / CONTAINER_NAME 
-- 强制删除容器：docker rmi -f CONTAINER_ID / CONTAINER_NAME 
-- 查看容器详细信息：docker inspect CONTAINER_ID / CONTAINER_NAME 
-- 进入容器：docker exec -it CONTAINER_ID / CONTAINER_NAME /bin/bash
+- 停止容器：`docker stop CONTAINER_ID / CONTAINER_NAME `
+- 一次性停止所有容器：`docker stop $(docker ps -a -q) `
+- 启动容器：`docker start CONTAINER_ID / CONTAINER_NAME `
+- 重启容器：`docker restart CONTAINER_ID / CONTAINER_NAME`
+-  删除容器：`docker rm CONTAINER_ID / CONTAINER_NAME `
+- 强制删除容器：`docker rmi -f CONTAINER_ID / CONTAINER_NAME `
+- 查看容器详细信息：`docker inspect CONTAINER_ID / CONTAINER_NAME `
+- 进入容器：`docker exec -it CONTAINER_ID / CONTAINER_NAME /bin/bash`**OR**`docker attatch -it CONTAINER_ID / CONTAINER_NAME`
+- 查看日志：`docker log CONTAINER_ID / CONTAINER_NAME `
 
 ##### 容器和宿主机之间文件复制与挂载
 
-- 从宿主机复制到容器：docker cp 宿主机本地路径 容器名字/ID：容器路径          docker cp /root/123.txt mycentos:/home/
--  从容器复制到宿主机：docker cp 容器名字/ID：容器路径 宿主机本地路径 docker cp mycentos:/home/456.txt /root 
-- 宿主机文件夹挂载到容器里：docker run -itd -v 宿主机路径:容器路径 镜像ID docker run -itd -v /root/mytest/:/home centos:7  (容器和宿主机之间的数据同步更新, 想想数据库吧...)
+- 从宿主机复制到容器：docker cp 宿主机本地路径 容器名字/ID：容器路径    `docker cp /root/123.txt mycentos:/home/`
+-  从容器复制到宿主机：docker cp 容器名字/ID：容器路径 宿主机本地路径 `docker cp mycentos:/home/456.txt /root `
+- 宿主机**文件夹**挂载到容器里：docker run -itd -v 宿主机路径:容器路径 镜像ID `docker run -itd -v /root/mytest/:/home centos:7`  (容器和宿主机之间的数据同步更新, 想想数据库吧...)
 
 #### 实战
 
@@ -125,16 +138,18 @@ tags: docker
 
 - dockefile方法
 
+  - 方法详解：`https://zhuanlan.zhihu.com/p/143109114`
+
   - 构建:docker build -t \<name>:\<tag>.   (.表示当前路径)
 
   - 镜像分层结构
 
-    ![](do-do-docker/image-20201104145416541.png)
+    ![](.\docker/image-20201104145416541.png)
 
   - dockerfile常用指令
-
-    - FROM 基于哪个镜像 
-    - MAINTAINER 注明作者
+  
+    - FROM 基于哪个镜像，who is his parent？
+    - MAINTAINER 注明作者，维护者信息
     -  COPY 复制文件进入镜像（只能用相对路径，不能用绝对路径） 
     - ADD 复制文件进入镜像（假如文件是.tar.gz文件会解压） 
     - WORKDIR： 指定工作目录，假如路径不存在会创建路径 
@@ -143,12 +158,12 @@ tags: docker
     - ENTRYPOINT 在容器启动的时候执行，作用于容器层，dockerfile里有多条时只允许执行最后一条(优先于cmd执行)
     - CMD 在容器启动的时候执行，作用于容器层，dockerfile里有多条时只允许执行最后一条 容器启动后执行默认的命令或者参数，允许被修改 (允许传参,没太搞懂....../bin/bash???)
     - 命令格式： 
-      1. shell命令格式：RUN yum install -y net-tools
+    1. shell命令格式：RUN yum install -y net-tools
       2. exec命令格式：RUN [ "yum","install" ,"-y" ,"net-tools"]
 
   - dockerfile
-
-    ```
+  
+    ```dockerfile
     #第一个
     FROM centos:7
     RUN echo "images building!"
@@ -173,29 +188,29 @@ tags: docker
 
 - 宿主机配置java环境:  有手就行,快上车不解释
 - 安装tomcat
-- 构建镜像:docker build -t mycentos:jdk
+- 构建镜像:`docker build -t centos:web .`
 
 - dockerfile 
 
-  ```
+  ```dockerfile
   FROM centos:7
-  ADD jdk-8u211-linux-x64.tar.gz /usr/local
-  RUN mv /usr/local/jdk1.8.0_211 /usr/local/jdk
-  ENV JAVA_HOME=/usr/local/jdk
+  ADD jdk-8u211-linux-x64.tar.gz /usr/local/software
+  RUN mv /usr/local/software/jdk1.8.0_211 /usr/local/software/jdk
+  ENV JAVA_HOME=/usr/local/software/jdk
   ENV JRE_HOME=$JAVA_HOME/jre
   ENV CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
   ENV PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
-  ADD apache-tomcat-8.5.35.tar.gz /usr/local
-  RUN mv /usr/local/apache-tomcat-8.5.35 /usr/local/tomcat
+  ADD apache-tomcat-8.5.35.tar.gz /usr/local/software
+  RUN mv /usr/local/software/apache-tomcat-8.5.35 /usr/local/software/tomcat
   EXPOSE 8080
-  ENTRYPOINT ["/usr/local/tomcat/bin/catalina.sh","run"]
+  ENTRYPOINT ["/usr/local/software/tomcat/bin/catalina.sh","run"]
   ```
 
 - 启动容器：
 
   ```
-  docker run -itd -p 80:8080 -v /root/test/ROOT:/usr/local/tomcat/webapps/ROOT
-  mycentos:jdk /bin/bash
+  docker run -itd -p 80:8080 -v /root/test/ROOT:/usr/local/software/tomcat/webapps/ROOT
+  centos:web /bin/bash
   ```
 
 - 踩坑:
@@ -206,7 +221,7 @@ tags: docker
 
 - dockerfile
 
-  ```
+  ```dockerfile
   FROM centos:7
   ADD nginx-1.16.0.tar.gz /usr/local
   COPY nginx_install.sh /usr/local
@@ -216,7 +231,7 @@ tags: docker
 
 - 安装nginx脚本
 
-  ```
+  ```sh
   #!/bin/bash
   yum install -y gcc gcc-c++ make pcre pcre-devel zlib zlib-devel
   #安装nginx依赖
@@ -245,7 +260,7 @@ tags: docker
 
 - dockerfile
 
-  ```
+  ```dockerfile
   #!/bin/bash
   yum install -y gcc gcc-c++ make openssl openssl-devel
   cd /home/redis-4.0.9
@@ -291,26 +306,69 @@ tags: docker
 - 启动命令
 
   ```
-  docker run --name some-mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -d mysql:5.7
+  docker run -p 3306:3306 --name mysql -v /usr/mydata/mysql/log:/var/log/mysql -v /usr/mydata/mysql/data:/var/lib/mysql -v /usr/mydata/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest
+  
+  参数：
+    docker run -d mysql:latest             以后台的方式运行 mysql 版本的镜像，生成一个容器。
+      --name mysql                           容器名为 mysql
+      -e MYSQL_ROOT_PASSWORD=123456          设置登陆密码为 123456，登陆用户为 root
+      -p 3306:3306                           将容器内部 3306 端口映射到 主机的 3306 端口，即通过 主机的 3306 可以访问容器的 3306 端口
+      -v /usr/mydata/mysql/log:/var/log/mysql    将容器的 日志文件夹 挂载到 主机的相应位置
+      -v /usr/mydata/mysql/data:/var/lib/mysql   将容器的 数据文件夹 挂载到 主机的相应位置
+      -v /usr/mydata/mysql/conf:/etc/mysql/conf.d   将容器的 自定义配置文件夹 挂载到主机的相应位置
   #-e MYSQL_ROOT_PASSWORD=abc123456  指定root用户密码
   ```
 
 - 进入容器
 
-  ```
-  docker exec -it 4336ae28fbfa env LANG=C.UTF-8 /bin/bash
+  ```dockerfile
+  docker exec -it mysql env LANG=C.UTF-8 /bin/bash
   #env LANG=C.UTF-8 设置中文,否则中文字符不会显示(小坑!!!因为pull下来的mysql:5.7 默认镜像FROM Debian)
   ```
 
+- init.sql
+
+  ```sql
+  -- 建库
+  create database `db_student`;
+  SET character_set_client = utf8;
+  use db_student;
+  -- 建表
+  drop table if exists `user`;
+  CREATE TABLE user (
+  id tinyint(5) zerofill auto_increment not null comment '学生学号',
+  name varchar(20) default null comment '学生姓名',
+  age tinyint default null comment '学生年龄',
+  class varchar(20) default null comment '学生班级',
+  sex char(5) not null comment '学生性别',
+  unique key (id)
+  )engine=innodb charset=utf8;
+  -- 插入数据
+  insert into user values('1','小明','15','初三','男');
+  insert into user values('2','小红','13','初二','女');
+  insert into user values('3','小东','14','初一','男');
+  insert into user values('4','小西','12','初二','男');
+  ```
+
+  
+
 - dockerfile
 
-  ```
+  ```dockerfile
   FROM mysql:5.7
   WORKDIR /docker-entrypoint-initdb.d
   ENV LANG=C.UTF-8
   ADD init.sql .
   #ADD会执行这个sql,而copy不会,因此不能替换成COPY。并且因为指定了WORKDIR,所以ADD的路径为<.>
   ```
+  
+- 构建镜像
+
+  ```
+  docker build -t cusdb:mysql .
+  ```
+
+  **BUT**   容器化并不适合数据库的部署 文章推荐：`https://zhuanlan.zhihu.com/p/159229406`
 
 #### docker网络模式
 
@@ -353,13 +411,13 @@ tags: docker
 - 启动mysql数据库容器
 
   ```
-  docker run --name mydb -e MYSQL_ROOT_PASSWORD=abc123456 -d mysql:5.7
+  docker run --name=mydb -e MYSQL_ROOT_PASSWORD=abc123456 -d cusdb:mysql
   ```
 
 - 启动tomcat应用容器并link到mysql数据库：
 
   ```
-  docker run -itd --name tomcat1 --link mydb tomcat:<tag>
+  docker run -itd --name tomcat001 --link mydb centos:web
   ```
 
 - mysql容器里是ping不通tomcat容器的
@@ -375,31 +433,31 @@ tags: docker
 - 创建一个新的网桥：
 
   ```
-  docker network create -d bridge BRIDGE_NAME
+  docker network create -d bridge my_bridge
   ```
 
 - 启动第一个容器：
 
   ```
-  docker run -itd --name tomcat centos:7 
+  docker run -itd --name=tomcat1 centos:web
   ```
 
 - 启动第二个容器：
 
   ```
-  docker run -itd --name redis centos:7 
+  docker run -itd --name=tomcat2 centos:web
   ```
 
 - 把第一个容器加入网桥：
 
   ```
-  docker network connect my_bridge tomcat 
+  docker network connect my_bridge tomcat1
   ```
 
 - 把第二个容器加入网桥：
 
   ```
-  docker network connect my_bridge redis 
+  docker network connect my_bridge tomcat2
   ```
 
 - 最后分别进入俩个容器中进行验证
@@ -695,6 +753,10 @@ docker run -itd --privileged=true --name CONTAINER_NAME centos:7 /bin/bash
 
 ###### 搭建Harbor私有仓库
 
+- harbor架构
+
+![image-20210419100922321](.\docker\harbor架构.png)
+
 - harbor离线地址:https://github.com/goharbor/harbor/releases
 
 - 修改配置：harbor.yml 
@@ -770,7 +832,7 @@ docker run -itd --privileged=true --name CONTAINER_NAME centos:7 /bin/bash
 
 - 网页上创建项目名 登录：
 
-  ```
+  ```shell
   docker login --username=admin 仓库ip
   ```
 
@@ -828,23 +890,232 @@ docker run -itd --privileged=true --name CONTAINER_NAME centos:7 /bin/bash
   docker import mysql-export.tar
   ```
 
-#### 收工！！！！
+#### docker安装常用应用
+
+##### rabbitMQ
+
+```
+docker run -d --hostname rabbit_host1 --name rabbitMQ -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=password -p 15672:15672 -p 5672:5672 rabbitmq:3.8.12-management-alpine
+
+#介绍
+-d 以守护进程方式在后台运行
+-p 15672:15672 management 界面管理访问端口
+-p 5672:5672 amqp 访问端口
+--name：指定容器名
+--hostname：设定容器的主机名，它会被写到容器内的 /etc/hostname 和 /etc/hosts，作为容器主机IP的别名，并且将显示在容器的bash中
+
+-e 参数
+  RABBITMQ_DEFAULT_USER 用户名
+  RABBITMQ_DEFAULT_PASS 密码
+```
+
+##### mysql
+
+1. 拉取镜像。
+
+   ```sh
+   拉取镜像：
+   docker pull mysql:5.7
+   ```
+
+2. 在本地创建目录（存放数据库文件）
+
+   容器中的文件，映射到宿主机。
+
+   ```sh
+   mkdir -p /root/mysql/data /root/mysql/logs /root/mysql/conf
+   ```
+
+3. 创建*.cnf
+
+   ```sh
+   在/root/mysql/conf中创建 *.cnf 文件(叫什么都行)
+   touch my.cnf
+   ```
+
+4. 启动docker
+
+   ```sh
+   docker run -p 3306:3306 --name mysql -v /root/mysql/conf:/etc/mysql/conf.d -v /root/mysql/logs:/logs -v /root/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+   ```
+
+   数据库就创建好了。后续。
+
+   ```sh
+   docker start mysql
+   ```
+
+##### redis
+
+```shell
+docker run -itd --name redis -p 8000:6379 redis --requirepass 123456 -v /data/redis/data:/data
+```
 
 
 
+##### sentinel
+
+```shell
+#拉取镜像
+docker pull bladex/sentinel-dashboard:latest
+
+#启动
+docker run --name sentinel -d -p 8858:8858  镜像id
+```
+
+##### rancher
+
+```shell
+docker run -d --restart=unless-stopped -p 8888:8080 rancher/server
+```
+
+##### nacos
+
+```shell
+docker run -d \
+-e MODE=standalone \
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=192.168.0.104 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=password \
+-e MYSQL_SERVICE_DB_NAME=myapp_nacos \
+-p 8848:8848 \
+--restart=always \
+--name nacos \
+nacos/nacos-server:latest
+```
+
+##### nginx
+
+- 启动容器
+
+```shell
+docker run --name nginx -d -p 80:80 -v /usr/local/nginx/conf/nginx.conf:/etc/nginx/nginx.conf nginx
+```
+
+- 配置文件
+
+```
+#默认配置文件
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
 
 
+events {
+    worker_connections  1024;
+}
 
 
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
 
 
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
 
 
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
 
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
 
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
 
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
 
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
 
+}
+```
 
 
 
